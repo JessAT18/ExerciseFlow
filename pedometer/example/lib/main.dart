@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:pedometer/pedometer.dart';
 
+import 'dart:developer' as developer;
+
 String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
 }
@@ -77,20 +79,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<String> sendData() async{ //New Function to send emails
-    var now = DateTime.now();
-    String cadena = "{"+
-    "'Email':'"+ emailController.text +"',"+ //textfield value
-    "'Name':'"+ nameController.text +"',"+   //textfield value
-    "'Datetime':'"+ now.toIso8601String() +"',"+ //variable for datetime
-    "'Steps':'"+ _steps +"'"+ //variable for steps
-    "}";
-    var data = jsonEncode(cadena);
+    
+    var stepsData = jsonEncode(<String, String>{
+        "Email": emailController.text,
+        "Name": nameController.text,
+        "Datetime": DateTime.now().toIso8601String(),
+        "Steps": _steps
+    });
+
     var response = await http.post(
       Uri.https('apiproductorjess.azurewebsites.net', '/api/odometer'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: data
+      body: stepsData
     );
     return response.body;
   }
@@ -140,7 +142,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Divider(
-                height: 100,
+                height: 50,
                 thickness: 0,
                 color: Colors.white,
               ),
