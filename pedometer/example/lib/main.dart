@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:pedometer/pedometer.dart';
 
-import 'dart:developer' as developer;
-
 String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
 }
