@@ -27,7 +27,7 @@ namespace fncConsumer
                 message.To.Add(dataOdometer.Email); //Email from queue
                 message.Subject = "YourOdometer";
                 message.From = new MailAddress("jessat18si410@outlook.com"); //My Email
-                message.Body = $"Hola! {dataOdometer.Name}, desde la última toma, caminaste {dataOdometer.Steps} pasos.";
+                message.Body = $"Hola! {dataOdometer.Name}, desde la última toma en {dataOdometer.Datetime}, caminaste {dataOdometer.Steps} pasos.";
 
                 SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com");
                 smtp.Port = 587;
